@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Github-api is the LUCY family&#x27;s repos service: repositories, pull requests, issues, CI, files and commits as a narrow HTTP contract, under the person&#x27;s own GitHub credential resolved from keyring, with subscriptions that end in one signed signal. A REX Technologies product.">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#080A09">
+<meta property="og:title" content="Github-api — GitHub for an assistant — REX Technologies">
+<meta property="og:description" content="Github-api is the LUCY family&#x27;s repos service: repositories, pull requests, issues, CI, files and commits as a narrow HTTP contract, under the person&#x27;s own GitHub credential resolved from keyring, with subscriptions that end in one signed signal. A REX Technologies product.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tochi-mba.github.io/Github-api/">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://tochi-mba.github.io/Github-api/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.replace("no-js","js");</script>
+<noscript><style>@media(max-width:760px){.site-nav{display:flex!important;position:static!important;flex-direction:column}.menu-button{display:none!important}}</style></noscript>
+<title>Github-api — GitHub for an assistant — REX Technologies</title>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="ambient ambient-one" aria-hidden="true"></div>
+<div class="ambient ambient-two" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="#top" aria-label="Github-api, by REX Technologies">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="9" cy="8" r="3"/><circle cx="9" cy="24" r="3"/><circle cx="23" cy="12" r="3"/><path d="M9 11v10M23 15c0 5-14 2-14 6"/></svg></span>
+      <span class="brand-lockup"><span class="brand-company">REX Technologies</span><span class="brand-name">Github-api</span></span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+    <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+      <a href="#how">How it works</a>
+      <a href="#api">The API</a>
+      <a href="#install">Run it</a>
+      <a href="#limits">What it will not do</a>
+      <a href="#docs">Docs</a>
+      <a class="nav-github" href="https://github.com/tochi-mba/Github-api">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero container" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow signal">The LUCY family · repos</p>
+      <h1>GitHub, reduced to what a person <span>would say</span> about it.</h1>
+      <p class="hero-lede">Repositories, pull requests, issues, CI, files and commits as one narrow HTTP contract. It holds no GitHub credential of its own: each call runs under the caller's, resolved from keyring for the profile the request names.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#install">Run it on your machine</a>
+        <a class="button button-secondary" href="https://github.com/tochi-mba/Github-api">Source on GitHub</a>
+      </div>
+      <div class="hero-meta">
+        <span>Port 8011</span>
+        <span>Audience github-api</span>
+        <span>No raw GitHub payloads</span>
+        <span>MIT licensed</span>
+      </div>
+    </div>
+    <pre class="console" aria-label="Who the caller is on GitHub"><code><span class="you">$ curl -sH "Authorization: Bearer $TOKEN" \
+       -H "X-Keyring-Profile: personal" \
+       http://127.0.0.1:8011/v1/me</span>
+
+{ <span class="k">"login"</span>: <span class="s">"octo"</span>,
+  <span class="k">"kind"</span>: <span class="s">"app"</span>,
+  <span class="k">"selection"</span>: <span class="s">"selected"</span>,
+  <span class="k">"repositories"</span>: 4 }</code></pre>
+  </section>
+
+  <section class="trust-strip">
+    <div class="container trust-grid">
+      <div><strong>No credential at rest</strong><span>The person&#x27;s GitHub token comes from keyring per request and is never stored.</span></div>
+      <div><strong>A fixed projection</strong><span>Every answer is a small public model; no raw GitHub payload leaves the service.</span></div>
+      <div><strong>Hidden means missing</strong><span>A repository the connection cannot see answers 404, exactly as one that does not exist.</span></div>
+      <div><strong>Every cap is confessed</strong><span>Lists answer with a total; logs, files and patches say what was cut.</span></div>
+    </div>
+  </section>
+
+  <section class="section container" id="how">
+    <div class="section-heading">
+      <p class="eyebrow signal">How it works</p>
+      <h2>One call, under the caller's own GitHub connection.</h2>
+      <p>Every <code>/v1</code> route needs a keyring token minted for audience <code>github-api</code>, and reads <code>X-Keyring-Profile</code> to choose which of the person's GitHub connections to use.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-number">01</span>
+        <h3>The token is verified</h3>
+        <p>A keyring JWT with the exact audience <code>github-api</code>. Anything else is a 401 before GitHub is touched.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">02</span>
+        <h3>The credential is resolved</h3>
+        <p>Keyring answers with that person's GitHub credential for the profile: the Lucy GitHub App, or a fine-grained personal access token. It is cached only until shortly before it expires, with one forced refresh on a GitHub 401.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">03</span>
+        <h3>GitHub is called, and the answer narrowed</h3>
+        <p>The raw payload is mapped to a public model. Failures are <code>application/problem+json</code> whose <code>detail</code> names the fix; a GitHub rate limit is a 429 carrying GitHub's own <code>Retry-After</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" id="api">
+    <div class="section-heading">
+      <p class="eyebrow signal">The API</p>
+      <h2>What each group of routes is for.</h2>
+      <p><code>{repo}</code> is <code>{owner}/{name}</code>. Lists take <code>limit</code> (1 to 100, default 20). The full table, the models and every error code are in <a href="https://github.com/tochi-mba/Github-api/blob/main/docs/api.md">docs/api.md</a>.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card"><span class="meta">GET /v1/me</span><h3>Identity</h3><p>Who the connection is, whether it is the app or a token, and whether it reaches all repositories or selected ones.</p></div>
+      <div class="feature-card"><span class="meta">/v1/repos</span><h3>Repositories</h3><p>Find, read, create, change visibility or description, archive and delete.</p></div>
+      <div class="feature-card"><span class="meta">/v1/repos/{repo}/pulls</span><h3>Pull requests</h3><p>List, read with reviews, threads and checks, read the changed files patch by patch, open, update, merge and review.</p></div>
+      <div class="feature-card"><span class="meta">/v1/repos/{repo}/issues</span><h3>Issues</h3><p>List, open, close and comment. Comments work on pull requests too.</p></div>
+      <div class="feature-card"><span class="meta">/v1/repos/{repo}/checks</span><h3>CI</h3><p>The checks on a pull request, branch or commit, a window of a job's log, re-run, cancel and workflow dispatch.</p></div>
+      <div class="feature-card"><span class="meta">contents · tree · commits · branches</span><h3>Files and commits</h3><p>Read a file or a tree, commit several files through the Git Data API (never forced), and create or delete a branch.</p></div>
+      <div class="feature-card"><span class="meta">/v1/subscriptions</span><h3>Subscriptions</h3><p>Watch for checks settling, a pull request merging, a review landing or a run completing. Each ends with one signed signal.</p></div>
+      <div class="feature-card"><span class="meta">GET /healthy · GET /ready</span><h3>Probes</h3><p>Liveness, and readiness that is 503 when keyring's signing keys, GitHub or the database cannot be reached.</p></div>
+    </div>
+  </section>
+
+  <section class="section container" id="install">
+    <div class="section-heading">
+      <p class="eyebrow signal">Run it</p>
+      <h2>Three commands, then call it.</h2>
+      <p>It needs keyring running and this service listed in keyring's service tokens as <code>github-api</code>. The tests need neither: they run against a fake keyring and an in-memory GitHub.</p>
+    </div>
+    <ol class="install-steps">
+      <li>Install the dependencies.
+        <div class="command-row"><code>make install</code><button class="copy-button" type="button" data-copy="make install">Copy</button></div>
+      </li>
+      <li>Copy the example environment, then set <code>GHAPI_KEYRING_SERVICE_TOKEN</code> in <code>.env</code>.
+        <div class="command-row"><code>cp .env.example .env</code><button class="copy-button" type="button" data-copy="cp .env.example .env">Copy</button></div>
+      </li>
+      <li>Run it. The OpenAPI page is at <code>http://127.0.0.1:8011/docs</code>.
+        <div class="command-row"><code>make run</code><button class="copy-button" type="button" data-copy="make run">Copy</button></div>
+      </li>
+    </ol>
+    <p class="install-note">The README has the checklist for <a href="https://github.com/tochi-mba/Github-api#registering-the-lucy-github-app-operator-once">registering the GitHub App</a>, and <a href="https://github.com/tochi-mba/Github-api/blob/main/docs/operations.md">docs/operations.md</a> lists every <code>GHAPI_</code> variable.</p>
+    <p id="copy-status" class="sr-only" aria-live="polite"></p>
+  </section>
+
+  <section class="section container" id="limits">
+    <div class="section-heading">
+      <p class="eyebrow signal">What it will not do</p>
+      <h2>Limits that are part of the design.</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Does it keep my GitHub token?</summary>
+        <p>No. Keyring is the vault. The credential is resolved per request, cached in memory only until shortly before it expires, and never written to disk. A subscription holds it in memory for a bounded time and stores nothing; after a restart the hub's sweep drives the subscription instead.</p>
+      </details>
+      <details>
+        <summary>Can it see more of GitHub than I allowed?</summary>
+        <p>No. How much it reaches is chosen on GitHub: the app is installed on all repositories or on selected ones, and a fine-grained token carries its own limits. <code>GET /v1/me</code> reports which.</p>
+      </details>
+      <details>
+        <summary>Does it receive webhooks?</summary>
+        <p>No. It polls. A subscription is looked at when it is opened, in the background, and on every read, and every subscription expires on its own, at most a week out.</p>
+      </details>
+      <details>
+        <summary>Can a caller make it POST anywhere?</summary>
+        <p>Not in production: <code>GHAPI_SIGNAL_URL_PREFIXES</code> limits where a signal may be sent. A signal says that something happened, never the result, and is signed with the subscription's own secret.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section container" id="docs">
+    <div class="section-heading">
+      <p class="eyebrow signal">Docs</p>
+      <h2>Written for the person who has to run it.</h2>
+    </div>
+    <div class="feature-grid">
+      <a class="feature-card link" href="https://github.com/tochi-mba/Github-api/blob/main/docs/api.md"><h3>The API</h3><p>Every route, model and error code.</p></a>
+      <a class="feature-card link" href="https://github.com/tochi-mba/Github-api/blob/main/docs/jobs.md"><h3>Jobs and signals</h3><p>Subscriptions, who looks under whose credential, and the signed signal.</p></a>
+      <a class="feature-card link" href="https://github.com/tochi-mba/Github-api/blob/main/docs/architecture.md"><h3>Architecture</h3><p>The layers, and what may import what.</p></a>
+      <a class="feature-card link" href="https://github.com/tochi-mba/Github-api/blob/main/docs/operations.md"><h3>Operations</h3><p>Every environment variable, the probes and the database.</p></a>
+      <a class="feature-card link" href="https://github.com/tochi-mba/Github-api/blob/main/docs/testing.md"><h3>Testing</h3><p>What each suite covers and what it runs against.</p></a>
+      <a class="feature-card link" href="https://github.com/tochi-mba/Github-api/blob/main/docs/mcp.md"><h3>MCP</h3><p>Why nothing fronts it with an MCP server, and the rules if one ever does.</p></a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-wrap">
+    <span>© <span id="year">2026</span> REX Technologies · Github-api</span>
+    <span>Part of the <a href="https://tochi-mba.github.io/LUCY-assistant/">LUCY</a> family. MIT licensed.</span>
+    <span class="footer-links">
+      <a href="https://github.com/tochi-mba/Github-api/blob/main/CHANGELOG.md">What's new <span aria-hidden="true">↗</span></a>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </span>
+  </div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>
