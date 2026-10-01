@@ -11,3 +11,8 @@ permissions:
 jobs:
   service:
     uses: tochi-mba/LUCY-assistant/.github/workflows/service.yml@v1
+    with:
+      # The image refuses to boot without keyring settings; these are not credentials.
+      docker-env: |
+        GHAPI_KEYRING_BASE_URL=http://127.0.0.1:8001
+        GHAPI_KEYRING_SERVICE_TOKEN=ci-dummy-service-token-0123456789abcdef
