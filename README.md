@@ -1,5 +1,7 @@
 # Github-api
 
+A REX Technologies product. Site: <https://tochi-mba.github.io/Github-api/>
+
 The LUCY family's **repos** service: GitHub, reduced to what a person would say about it.
 Lucy's hub calls it for the `repos` capability -- repositories, pull requests, issues, CI,
 files and commits -- and for subscriptions that end with a signed signal when CI settles, a
