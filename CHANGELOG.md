@@ -21,7 +21,7 @@ All notable changes to this service follow [Keep a Changelog](https://keepachang
   subscribe time, and on every `GET` from the hub's sweep; each ends with one signal sent by
   `lucy_signals.deliver`, signed with the subscription's secret.
 
-### To do
+### Changed
 
-- Move `lucy-signals` from the LUCY-assistant branch `claude/amazing-rubin-m8m3w4` to the
-  tag `lucy-signals-v0.1.0` once it is merged (`[tool.uv.sources]`, then `uv lock`).
+- `lucy-signals` comes from the LUCY-assistant tag `lucy-signals-v0.1.0`. It was pinned to
+  the branch that added it, which has been merged and deleted; the package is unchanged.

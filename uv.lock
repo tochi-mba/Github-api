@@ -436,7 +436,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.115" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "keyring-client", git = "https://github.com/tochi-mba/Keyring-api?subdirectory=clients%2Fpython&tag=keyring-client-v0.1.0" },
-    { name = "lucy-signals", git = "https://github.com/tochi-mba/LUCY-assistant?subdirectory=clients%2Fpython%2Flucy_signals&branch=claude%2Famazing-rubin-m8m3w4" },
+    { name = "lucy-signals", git = "https://github.com/tochi-mba/LUCY-assistant?subdirectory=clients%2Fpython%2Flucy_signals&tag=lucy-signals-v0.1.0" },
     { name = "pydantic", specifier = ">=2.9" },
     { name = "pydantic-settings", specifier = ">=2.5" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
@@ -754,7 +754,7 @@ wheels = [
 [[package]]
 name = "lucy-signals"
 version = "0.1.0"
-source = { git = "https://github.com/tochi-mba/LUCY-assistant?subdirectory=clients%2Fpython%2Flucy_signals&branch=claude%2Famazing-rubin-m8m3w4#d7a46dee8f7a06be96067d9259e82f3cc93eab0f" }
+source = { git = "https://github.com/tochi-mba/LUCY-assistant?subdirectory=clients%2Fpython%2Flucy_signals&tag=lucy-signals-v0.1.0#3474c8b5e8f4f90dd5792af42e66b6da7179e334" }
 dependencies = [
     { name = "httpx" },
 ]

@@ -156,5 +156,4 @@ forbidden_modules = ["fastapi", "lucy_signals"]
 
 [tool.uv.sources]
 keyring-client = { git = "https://github.com/tochi-mba/Keyring-api", subdirectory = "clients/python", tag = "keyring-client-v0.1.0" }
-# Moves to the tag `lucy-signals-v0.1.0` once the branch that adds lucy_signals is merged.
-lucy-signals = { git = "https://github.com/tochi-mba/LUCY-assistant", subdirectory = "clients/python/lucy_signals", branch = "claude/amazing-rubin-m8m3w4" }
+lucy-signals = { git = "https://github.com/tochi-mba/LUCY-assistant", subdirectory = "clients/python/lucy_signals", tag = "lucy-signals-v0.1.0" }
