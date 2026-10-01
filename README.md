@@ -88,12 +88,10 @@ limited to, so `selection` is empty for one; `repositories` counts what it can r
 | Raw payload → public model | `src/github_api/github/mappers.py`, `models.py` |
 | Subscriptions, poller, signals | `src/github_api/jobs/` |
 
-## Dependencies on unreleased family code
+## Family code it depends on
 
-`lucy-signals` (the signed-signal sender) is a git source pinned to the LUCY-assistant
-branch `claude/amazing-rubin-m8m3w4`, where it was added. **Move it to the tag
-`lucy-signals-v0.1.0` once that branch is merged** -- in `[tool.uv.sources]`, then
-`uv lock`. `keyring-client` comes from the public Keyring-api tag `keyring-client-v0.1.0`,
-as every sibling's does.
+Both come from a public tag, as a git source in `[tool.uv.sources]`: `lucy-signals` (the
+signed-signal sender) from the LUCY-assistant tag `lucy-signals-v0.1.0`, and
+`keyring-client` from the Keyring-api tag `keyring-client-v0.1.0`, as every sibling's does.
 
 See [AGENTS.md](AGENTS.md) before changing anything, and [docs/](docs/) for the rest.
