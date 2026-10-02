@@ -1,0 +1,19 @@
+{
+  "$schema": "https://tochi-mba.github.io/schema/project.schema.json",
+  "slug": "repos",
+  "name": "repos",
+  "tagline": "GitHub, reduced to what a person would say about it: repositories, pull requests, issues, CI, files and commits.",
+  "description": "The family's repos service. The hub calls it for repositories, pull requests, issues, CI, files and commits, and for subscriptions that end with a signed signal when CI settles, a pull request merges, a review lands or a job finishes. It holds no GitHub credential of its own: each request carries a keyring token and names a profile, and the service resolves that person's credential from keyring for the call. Everything it answers is a fixed, narrow projection; no raw GitHub payload ever leaves it.",
+  "highlights": [
+    "No credential of its own: resolved per request from keyring",
+    "Fixed, narrow projections instead of raw GitHub payloads",
+    "Subscriptions that end with a signed signal when CI settles or a pull request merges"
+  ],
+  "stack": ["Python 3.12", "FastAPI", "GitHub Apps"],
+  "category": "service",
+  "family": "lucy",
+  "role": "repos",
+  "status": "active",
+  "order": 180,
+  "display": true
+}
